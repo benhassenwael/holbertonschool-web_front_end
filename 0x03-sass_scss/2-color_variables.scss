@@ -1,0 +1,16 @@
+/* Colors */
+$color_txt: #3D3D3D;
+$color_bg: #6D6D6D;
+
+body {	
+	color: $color_txt;
+	background-color: $color_bg;
+}
+
+p {
+	color: $color_txt;
+}
+
+h2 {
+	background-color: $color_bg;
+}

@@ -1,0 +1,14 @@
+/* Margin mixin  */
+
+@mixin margins($navi-margin) {
+  margin-left: $navi-margin;
+  margin-right: $navi-margin;
+}
+
+body {
+  @include margins(10px);
+}
+
+div {
+  @include margins(15px);
+}
