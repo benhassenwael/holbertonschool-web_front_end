@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>Task 0</title>
+	<script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+	<script type="application/javascript">
+		function createFamilyTree() {
+
+			$("body").append("<table></table>");
+			$("table").append("<thead style=\"font-weight: bold; font-size: 2rem;\"></thead>");
+			$("thead").append("<tr></tr>");
+			$("thead tr").append("<th id=\"firstname\"></th");
+			$("#firstname").text("Firstname");
+			$("thead tr").append("<th id=\"lastname\"></th")
+			$("#lastname").text("Lastname");
+
+			$("table").append("<tbody style =\"font-weight: 500; font-size: 1.5rem;\"></tbody>");
+			for (i = 0; i < 3; i++) {
+				$("tbody").append("<tr id=\"line" + i + "\"></tr>");
+				$("#line" + i).append("<td id=\"cell1\"></td>");
+				$("#line" + i).append("<td id=\"cell2\"></td>");
+			}
+
+			$("#line0 #cell1").text("Guillaume");
+			$("#line0 #cell2").text("Salva");
+			$("#line1 #cell1").text("Paulette");
+			$("#line1 #cell2").text("Salva");
+			$("#line2 #cell1").text("Antoine");
+			$("#line2 #cell2").text("Salva");
+
+		}
+
+		function replaceFamilyTree() {
+			rows = '<tr><td>Gerard</td>\n<td>Bonissa</td></tr>';
+			$('table tbody').html(rows);
+		}
+
+		$(document).ready(function () {
+			createFamilyTree();
+			replaceFamilyTree();
+		});
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>Task 0</title>
+	<script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+	<script type="application/javascript">
+		function createFamilyTree() {
+
+			$("body").append("<table></table>");
+			$("table").append("<thead style=\"font-weight: bold; font-size: 2rem;\"></thead>");
+			$("thead").append("<tr></tr>");
+			$("thead tr").append("<th id=\"firstname\"></th");
+			$("#firstname").text("Firstname");
+			$("thead tr").append("<th id=\"lastname\"></th")
+			$("#lastname").text("Lastname");
+
+			$("table thead").after("<tbody style =\"font-weight: 500; font-size: 1.5rem;\"></tbody>");
+
+		}
+
+		function addNewMember(firstName, lastName) {
+			rows = '<tr><td>' + firstName + '</td>\n<td>' + lastName + '</td>\n<td class="row-x">' + '(x)' + '</td></tr>';
+			$('table tbody').append(rows);
+			$(".row-x").css("background-color", "orange");
+
+			$('.row-x').click(function () {
+				$(this).closest('tr').remove();
+			});
+		}
+
+		$(document).ready(function () {
+			createFamilyTree();
+			addNewMember('Guillaume', 'Salva');
+			addNewMember('Arielle', 'Snizt');
+			addNewMember('Fanette', 'Snizt');
+			addNewMember('Gerard', 'Snizt');
+			addNewMember('Victor', 'Salva');
+		});
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>Task 0</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<style>
+		.loading {
+			opacity: 0.2;
+		}
+	</style>
+	<script type="application/javascript">
+		function createSearchForm() {
+			$("body").append('<form><input type="text"><input type="submit"></form><ul></ul><ul id="pagination"></ul>');
+			//$("body").append('');
+			submit();
+		}
+
+		function addNewArticle(id, title, snippet) {
+			rows = '<li><p><span>' + id + '- </span><b>' + title + '</b></p><p>' + snippet + '</p</li>';
+
+			$("ul").first().append(rows);
+		}
+
+		function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+			$("#pagination").html("");
+
+			let numPages = numberOfItems / itemsPerPage;
+			if (numPages > 100) numPages = 100;
+			for (let i = 0; i < numPages; i++) {
+				let li = $("<li></li>");
+				li.append(i);
+				li.css({
+					"cursor": "pointer",
+					"margin-left": "10px",
+					"display": "inline"
+				});
+				if (i == currentOffset) {
+					li.css({
+						"font-weight": "bold"
+					});
+				}
+
+				li.click(function () {
+					queryWikipedia(
+						$("input").first().val(),
+						li.html() * itemsPerPage
+					);
+				});
+
+				$("#pagination").append(li);
+			}
+		}
+
+		function queryWikipedia(search, offset = 0) {
+			let url = "https://en.wikipedia.org/w/api.php";
+
+			displayLoading(true);
+			$.ajax({
+				url: url,
+				type: "GET",
+				data: {
+					origin: "*",
+					action: "query",
+					list: "search",
+					srsearch: search,
+					sroffset: offset,
+					format: "json"
+				},
+				dataType: "json",
+			})
+				.done(function (json) {
+					displayLoading(false);
+					$("ul").first().html("");
+					let articles = json.query.search;
+
+					buildPagination(json.query.searchinfo.totalhits, 10, offset / 10)
+					articles.forEach(arti => {
+						addNewArticle(arti.pageid, arti.title, arti.snippet);
+					});
+				})
+				.fail(function (err) {
+					console.log(err);
+				})
+		}
+
+		function submit() {
+			$('form').submit(function (e) {
+				let str = $('form input').first().val();
+				queryWikipedia(str);
+				e.preventDefault();
+			});
+		}
+
+		function displayLoading(loading) {
+            let firtUl = $("ul").first();
+
+            if (loading === true) {
+                firtUl.wrap("<div class='loading'></div>");
+            } else {
+                firtUl.unwrap();
+            }
+        }
+
+		$(document).ready(function () {
+			createSearchForm();
+		});
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

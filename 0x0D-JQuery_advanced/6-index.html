@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>Task 0</title>
+	<script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+	<script type="application/javascript">
+		function createFamilyTree() {
+
+			$("body").append("<table></table>");
+			$("table").append("<thead style=\"font-weight: bold; font-size: 2rem;\"></thead>");
+			$("thead").append("<tr></tr>");
+			$("thead tr").append("<th id=\"firstname\"></th");
+			$("#firstname").text("Firstname");
+			$("thead tr").append("<th id=\"lastname\"></th")
+			$("#lastname").text("Lastname");
+
+			$("table thead").after("<tbody style =\"font-weight: 500; font-size: 1.5rem;\"></tbody>");
+
+		}
+
+		function addNewMember(firstName, lastName, position) {
+			rows = '<tr><td>' + firstName + '</td>\n<td>' + lastName + '</td>\n<td class="row-x">' + '(x)' + '</td></tr>';
+			if (position == "before") {
+				$('table tbody').prepend(rows);
+			} else {
+				$('table tbody').append(rows);
+			}
+
+			$(".row-x").css("background-color", "orange");
+
+			$('.row-x').click(function () {
+				$(this).closest('tr').remove();
+			});
+		}
+
+		function createForm() {
+			$("table").before('<div style="display: flex; flex-direction: row;">\n<input type="text">\n\
+  <input type="text">\n<select value="person"><option value="before" name="before">Before</option>\n\
+  <option value="after" name="after">After</option>\n</select>\n<input type="submit" value="Submit">\n</div>');
+
+			$('input:nth-of-type(3)').click(function () {
+				let name = $("input:nth-of-type(1)").val();
+				let lastname = $("input:nth-of-type(2)").val();
+				let option = $("select").val();
+
+				addNewMember(name, lastname, option);
+			});
+		}
+
+		$(document).ready(function () {
+			createFamilyTree();
+			createForm();
+			addNewMember('Guillaume', 'Salva');
+			addNewMember('Arielle', 'Snizt');
+			addNewMember('Fanette', 'Snizt');
+			addNewMember('Gerard', 'Snizt');
+			addNewMember('Victor', 'Salva');
+		});
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
